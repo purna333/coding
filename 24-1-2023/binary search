@@ -1,0 +1,22 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int l=0;
+        int h=nums.length-1;
+        return(bs(nums,target,l,h));
+    }
+    public int bs(int[] nums,int target,int l,int h){
+        if(l>h){
+            return -1;
+        }
+        int mid= l+(h-l)/2;
+        if(nums[mid]==target){
+            return mid;
+        }
+        else if(nums[mid]<target){
+            return bs(nums,target,mid+1,h);
+        }
+        else{
+            return bs(nums,target,l,mid-1);
+        }
+    }
+}
