@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import Counter
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        k=[]                 
+        def find(root):
+            if not root:                 
+                return
+            k.append(root.val)  
+            find(root.left)
+            find(root.right)
+            return root
+        find(root)
+        d=Counter(k)
+        m=max(d.values())
+        l=[]
+        for i in d:
+            if(d[i]==m):
+                l.append(i)
+        return l
+        
+
+        
