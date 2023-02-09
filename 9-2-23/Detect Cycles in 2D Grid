@@ -1,0 +1,41 @@
+class Solution {
+    int[][] dirs = new int[][]{{-1,0},{0,1},{1,0},{0,-1}};
+    public boolean containsCycle(char[][] grid) {
+        int r=grid.length;
+        int c=grid[0].length;
+        boolean[][] visited = new boolean[r][c];
+        
+        for(int i=0; i<r; i++){
+            for(int j=0; j<c; j++){
+                if(!visited[i][j]){
+                    if(isCycle(grid, i, j, visited, -1, -1))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean isCycle(char[][] grid, int i, int j, boolean[][] visited, int prevI, int prevJ)
+    {
+        visited[i][j] = true;
+        
+        for(int[] dir: dirs){
+            int x = i+dir[0];
+            int y = j+dir[1];
+            
+            if(x<0 || x>=grid.length || y<0 || y>=grid[0].length || grid[x][y]!=grid[i][j])
+                continue;
+            
+            if(x == prevI && y == prevJ)
+                continue;
+            
+            if(visited[x][y])
+                return true;
+            
+            if(isCycle(grid, x, y, visited, i, j))
+                return true;
+        }
+        return false;
+    }
+}
